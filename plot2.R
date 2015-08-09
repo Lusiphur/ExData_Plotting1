@@ -1,0 +1,8 @@
+results <- paste(df$Date, df$Time, collapse = NULL, sep = ' ')
+df$datetime <- strptime(results, format = "%d/%m/%Y  %H:%M:%S")
+png(file="plot2.png",height=480,width=480)
+with(df, plot(df$datetime, df$Global_active_power, type="l", xaxt="n", xlab="", ylab = "Global Active Power (kilowatts)"))
+dayrange=c(min(df$datetime),max(df$datetime)+1)
+dayrange[2] <- as.POSIXlt(dayrange[2]+60)
+axis.POSIXct(1, at=seq(dayrange[1], dayrange[2], by="day"), format="%a")
+dev.off()
